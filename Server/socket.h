@@ -9,6 +9,7 @@
 #include <QTcpSocket>
 #include <QDateTime>
 #include <map>
+#include <set>
 
 
 #include "command.h"
@@ -22,19 +23,20 @@ class Socket : public QObject
 
 public:
     explicit Socket(QObject *parent = nullptr);
-    ~Socket();
+    ~Socket(){}
 
 public slots:
     void onNewConnection();
     void onSocketStateChanged(QAbstractSocket::SocketState socketState);
     void onReadyRead();
-    void send(Cmd com);
-    void create_user(User);
+    void send(Cmd com, QString name);
+    void create_user(User*);
 
 
 private:
     QTcpServer  _server;
-    std::map<QString, User> _sockets;
+    std::map<QString, User*> _sockets;
+//    std::set<QString, User*> _soc;
 
     Handler * hand;
 };

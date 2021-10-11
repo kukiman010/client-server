@@ -39,6 +39,17 @@ public:
     QString                     get_name()                      {return _name;}
     void                        set_name(QString name)          {_name = name;}
 
+    User &  operator=(const User & other)
+    {
+        if (this == & other)
+            return * this;
+
+        this->_UserStatus = other._UserStatus;
+        this->_name = other._name;
+        this->_socket = other._socket;
+
+        return * this;
+    }
 
 };
 

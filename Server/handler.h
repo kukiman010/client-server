@@ -23,9 +23,9 @@ public:
     void to_process(Cmd com, QTcpSocket * qts);
 
 signals:
-    void to_send(Cmd);
+    void to_send(Cmd, QString mes);
 //    void  disconnect(Cmd ptr){}
-    void create(User);
+    void create(User*);
 };
 
 #endif // HANDLER_H

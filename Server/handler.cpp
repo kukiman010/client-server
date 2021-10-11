@@ -9,10 +9,10 @@ Handler::Handler(QObject *parent) : QObject(parent)
 
 void Handler::to_process(Cmd com, QTcpSocket * qts)
 {
+    QString user ="", pass="";
     if(com.data()->getType() == Command::commandType::CT_system &&
             com.data()->getAction() == Command::CA_sing_in)
     {
-        QString user ="", pass="";
         for(auto i: com.data()->get_object())
         {
             if(Command::CSO_user == i.com_SO )
@@ -23,12 +23,14 @@ void Handler::to_process(Cmd com, QTcpSocket * qts)
 
         bool status = storage.findUser(user,pass);
 
-        User us(qts);
-        us.set_name(user);
+        QTcpSocket * soc = new QTcpSocket(qts);
+
+        User* us =  new User(soc);
+        us->set_name(user);
         if(status)
-            us.set_status(User::US_actual);
+            us->set_status(User::US_actual);
         else
-            us.set_status(User::US_invalid);
+            us->set_status(User::US_invalid);
 
         if(status)
         {
@@ -40,7 +42,7 @@ void Handler::to_process(Cmd com, QTcpSocket * qts)
             ptr->setRevers(Command::CR_status_connect);
             ptr->setUser(user);
 
-            emit to_send(ptr);
+            emit to_send(ptr, user);
         }
         else
         {
@@ -50,7 +52,7 @@ void Handler::to_process(Cmd com, QTcpSocket * qts)
             ptr->setRevers(Command::CR_status_connect);
             ptr->setUser(user);
 
-            emit to_send(ptr);
+            emit to_send(ptr, user);
         }
     }
 
