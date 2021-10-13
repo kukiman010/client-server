@@ -13,6 +13,8 @@ class Socket : public QObject
 {
     Q_OBJECT
 
+    void loop(Cmd com);
+
 public:
     explicit Socket(QObject *parent = nullptr);
     ~Socket();
@@ -27,6 +29,7 @@ public slots:
 private:
     QTcpSocket  _socket;
     QString userClient;
+    uint    _id_client;
 
 
 };

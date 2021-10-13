@@ -10,6 +10,7 @@
 #include <QDateTime>
 #include <map>
 #include <set>
+#include <mutex>
 
 
 #include "command.h"
@@ -29,16 +30,20 @@ public slots:
     void onNewConnection();
     void onSocketStateChanged(QAbstractSocket::SocketState socketState);
     void onReadyRead();
-    void send(Cmd com, QString name);
+    void send(Cmd com);
     void create_user(User*);
 
 
 private:
-    QTcpServer  _server;
-    std::map<QString, User*> _sockets;
-//    std::set<QString, User*> _soc;
+    QTcpServer                  _server;
+    std::map<uint, QTcpSocket*> _sockets;
+//    std::map<QString, User*> _sockets;
+    Handler *                   hand;
+    uint                        _soc_id;
+    std::mutex                  _mutex;
 
-    Handler * hand;
+
+    uint            push_sockets(QTcpSocket* tcp);
 };
 
 

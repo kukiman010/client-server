@@ -4,7 +4,6 @@
 
 #include <queue>
 #include <list>
-//#include <QMutex>
 #include <mutex>
 
 template <typename T>

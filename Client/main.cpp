@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
 
     Socket soc;
-    soc.sing_in("qwerty", "1234");
+//    soc.sing_in("qwerty", "1234");
 
 
     return app.exec();

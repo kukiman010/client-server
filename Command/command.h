@@ -43,6 +43,7 @@ public:
         CA_connect,         // подключение
         CA_connected,       // подключино
         CA_game_move,       //
+        CA_client_id,       // вернуть id client
         CA_
     };
 
@@ -78,6 +79,7 @@ protected:
     QString                     _user;
     simpleObject                _info;
     std::list<simpleObject>     _objects;
+    uint                        _id;
 
 
 public:
@@ -97,6 +99,9 @@ public:
 
     inline void                             setInfo(const simpleObject info)                {_info = info;}
     inline simpleObject                     getInfo()                                       {return _info;}
+
+    inline void                             setId(const uint id)                            {_id = id;}
+    inline uint                             getId()                                         {return _id;}
 
     inline void                             addObject(const simpleObject obj)               {_objects.push_back(obj);}
     inline void                             addObject(const std::list<simpleObject> &L_obj) {_objects.insert( _objects.end(), L_obj.begin(), L_obj.end() );}

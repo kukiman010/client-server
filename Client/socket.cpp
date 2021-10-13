@@ -1,10 +1,13 @@
 #include "socket.h"
 
+
 Socket::Socket(QObject *parent) : QObject(parent)
 {
     qDebug() << "Client\n";
     _socket.connectToHost(QHostAddress("127.0.0.1"), 4242);
     connect(&_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()) );
+
+    _id_client =0;
 }
 
 Socket::~Socket()
@@ -17,25 +20,20 @@ void Socket::onReadyRead()
     QByteArray arr = _socket.readAll();
 
     Cmd cmd = Cmd(new Command);
-    QDataStream stream2(&arr, QIODevice::ReadOnly);
-    stream2 >> *cmd;
+    QDataStream stream(&arr, QIODevice::ReadOnly);
+    stream >> *cmd;
 
-    Cmd ptr = Cmd(new Command);
+    if(cmd == nullptr)
+        return;
+    else
+        loop(cmd);
 
-    if(cmd.data()->getAction() == Command::CA_connect &&
-            cmd.data()->getRevers() == Command::CR_status_connect)
-    {
-        sing_in("qwerty", "123");
-    }
-
-    QTime time = QDateTime::currentDateTime().time();
-    qDebug() << time.hour()<< ":" << time.minute() <<":"
-             << time.second() << "  Unknown team";
 }
 
 
 void Socket::send(Cmd com)
 {
+    com.data()->setId(_id_client != 0 ? _id_client : 0);
     QByteArray bytes;
     QDataStream stream1(&bytes, QIODevice::WriteOnly);
     stream1 << *com;
@@ -67,4 +65,45 @@ void Socket::sing_in(const QString user, const QString pass)
 
 
     send(ptr);
+}
+
+void Socket::loop(Cmd com)
+{
+    Cmd ptr = Cmd(new Command);
+
+
+    if(ptr.data()->getType() == Command::CT_storage)
+    {
+
+    }
+    else if(ptr.data()->getType() == Command::CT_users)
+    {
+
+    }
+    else if(ptr.data()->getType() == Command::CT_system)
+    {
+        if(com.data()->getAction() == Command::CA_connect &&
+                com.data()->getRevers() == Command::CR_status_connect)
+        {
+            sing_in("qwerty", "123");
+        }
+        else if(com.data()->getAction() == Command::CA_client_id &&
+                com.data()->getRevers() == Command::CR_status_connect)
+        {
+            _id_client = com.data()->getId();
+            sing_in("qwerty", "1234");
+        }
+
+    }
+    else if(ptr.data()->getType() == Command::CT_error)
+    {
+
+    }
+    else
+    {
+        QTime time = QDateTime::currentDateTime().time();
+        qDebug() << time.hour()<< ":" << time.minute() <<":"
+                 << time.second() << "  Unknown team";
+    }
+
 }

@@ -1,18 +1,13 @@
 #include "command.h"
 
-//Command::Command()
-//{
-////    qRegisterMetaType< Cmd >( "Cmd" );
-//}
-
-
 QDataStream & operator >>(QDataStream &stream, Command &command)
 {
     uint8_t act, rev, typ;
-    uint size;
+    uint size, id;
     QString str;
 
     stream  >> act
+            >> id
             >> rev
             >> typ
             >> command._user
@@ -26,6 +21,7 @@ QDataStream & operator >>(QDataStream &stream, Command &command)
         command._objects.push_back(obj);
     }
     command._action = static_cast<Command::commandAction>(act);
+    command._id = static_cast<Command::commandAction>(id);
     command._revers = static_cast<Command::commandRevers>(rev);
     command._type = static_cast<Command::commandType>(typ);
 
@@ -35,6 +31,7 @@ QDataStream & operator >>(QDataStream &stream, Command &command)
 QDataStream & operator <<(QDataStream &stream, Command &command)
 {
     stream  << static_cast<uint8_t>(command._action)
+            << static_cast<uint8_t>(command._id)
             << static_cast<uint8_t>(command._revers)
             << static_cast<uint8_t>(command._type)
             << command._user

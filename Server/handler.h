@@ -20,10 +20,10 @@ public:
     ~Handler(){}
 
 
-    void to_process(Cmd com, QTcpSocket * qts);
+    void to_process(Cmd com);
 
 signals:
-    void to_send(Cmd, QString mes);
+    void to_send(Cmd);
 //    void  disconnect(Cmd ptr){}
     void create(User*);
 };
