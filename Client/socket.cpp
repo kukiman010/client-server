@@ -69,20 +69,20 @@ void Socket::sing_in(const QString user, const QString pass)
 
 void Socket::loop(Cmd com)
 {
-    Cmd ptr = Cmd(new Command);
+//    Cmd ptr = Cmd(new Command);
 
 
-    if(ptr.data()->getType() == Command::CT_storage)
+    if(com->getType() == Command::CT_storage)
     {
 
     }
-    else if(ptr.data()->getType() == Command::CT_users)
+    else if(com->getType() == Command::CT_users)
     {
 
     }
-    else if(ptr.data()->getType() == Command::CT_system)
+    else if(com->getType() == Command::CT_system)
     {
-        if(com.data()->getAction() == Command::CA_connect &&
+        if(com->getAction() == Command::CA_connect &&
                 com.data()->getRevers() == Command::CR_status_connect)
         {
             sing_in("qwerty", "123");
@@ -95,7 +95,7 @@ void Socket::loop(Cmd com)
         }
 
     }
-    else if(ptr.data()->getType() == Command::CT_error)
+    else if(com.data()->getType() == Command::CT_error)
     {
 
     }

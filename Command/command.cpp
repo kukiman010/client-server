@@ -31,7 +31,7 @@ QDataStream & operator >>(QDataStream &stream, Command &command)
 QDataStream & operator <<(QDataStream &stream, Command &command)
 {
     stream  << static_cast<uint8_t>(command._action)
-            << static_cast<uint8_t>(command._id)
+            << static_cast<uint>(command._id)
             << static_cast<uint8_t>(command._revers)
             << static_cast<uint8_t>(command._type)
             << command._user
