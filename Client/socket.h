@@ -15,6 +15,9 @@ class Socket : public QObject
 
     void loop(Cmd com);
 
+signals:
+    void gui_authorization(bool aut);
+
 public:
     explicit Socket(QObject *parent = nullptr);
     ~Socket();

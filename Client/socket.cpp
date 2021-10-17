@@ -82,16 +82,17 @@ void Socket::loop(Cmd com)
     }
     else if(com->getType() == Command::CT_system)
     {
-        if(com->getAction() == Command::CA_connect &&
+        if(com->getAction() == Command::CA_connected &&
                 com.data()->getRevers() == Command::CR_status_connect)
         {
-            sing_in("qwerty", "123");
+//            sing_in("qwerty", "123");
+            emit gui_authorization(true);
         }
         else if(com.data()->getAction() == Command::CA_client_id &&
                 com.data()->getRevers() == Command::CR_status_connect)
         {
             _id_client = com.data()->getId();
-            sing_in("qwerty", "1234");
+//            sing_in("qwerty", "1234");
         }
 
     }

@@ -22,6 +22,7 @@ void Handler::to_process(Cmd com)
         }
         bool status = storage.findUser(user,pass);
 
+        qDebug() << user << pass << status;
 
         if(status)
         {

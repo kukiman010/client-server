@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>SimplePage.qml</file>
+        <file>PageLogin.qml</file>
+		<file>PAGEONE.qml</file>
     </qresource>
 </RCC>
