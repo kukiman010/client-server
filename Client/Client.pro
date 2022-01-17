@@ -20,6 +20,8 @@ SOURCES += \
         gamelogic.cpp \
         gui_core.cpp \
         main.cpp \
+        messagelistl.cpp \
+        messagemodel.cpp \
         socket.cpp
 
 RESOURCES += qml.qrc
@@ -38,6 +40,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     gamelogic.h \
     gui_core.h \
+    messagelistl.h \
+    messagemodel.h \
     socket.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Command/release/ -lCommand

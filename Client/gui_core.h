@@ -2,6 +2,7 @@
 #define GUICORE_H
 
 #include <QObject>
+#include <QAbstractListModel>
 #include "socket.h"
 
 class GuiCore : public QObject

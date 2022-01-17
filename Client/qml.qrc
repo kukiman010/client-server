@@ -3,6 +3,7 @@
         <file>main.qml</file>
         <file>SimplePage.qml</file>
         <file>PageLogin.qml</file>
-		<file>PAGEONE.qml</file>
+        <file>PAGEONE.qml</file>
+        <file>MainPage.qml</file>
     </qresource>
 </RCC>
