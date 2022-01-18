@@ -10,7 +10,8 @@ Page
     id: root
     anchors.fill: parent
 //    property string username: "not find"
-    property string username: left_bar.width + " " + left_bar.height
+//    property string username: left_bar.width + " " + left_bar.height
+    property string username: chat.height
 
     Rectangle
     {
@@ -57,20 +58,22 @@ Page
         color: "black"
         width: (root.width / 3 ) - 10
         height: root.height - top_bar.height - 10
-        x: left_bar.height + 10
+        x: left_bar.width + 10
         y: top_bar.height + 5
         ColumnLayout
         {
-            anchors.centerIn: parent
+            anchors.fill: parent
+
             Frame
             {
                 Layout.fillWidth: true
 
                 ListView
                 {
-                    implicitWidth: 300
-                    implicitHeight: 250
                     anchors.fill: parent
+                    implicitWidth: chat.width
+                    implicitHeight: chat.height
+
                     clip: true
 
                     model: MessageModel
@@ -81,12 +84,7 @@ Page
                     delegate: RowLayout
                     {
                         width: parent.width
-
-    //                    CheckBox
-    //                    {
-    //                        checked: model.done
-    //                        onClicked: model.done = checked
-    //                    }
+//                        height: parent.height
 
                         TextField
                         {
@@ -100,6 +98,7 @@ Page
                             onEditingFinished: model.userName = text
                             Layout.fillWidth: true
                         }
+
                     }
                 }
             }
@@ -120,5 +119,52 @@ Page
     //            }
     //        }
         }
+
+
+        Row {
+            id: row
+            height: 50
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            spacing: 5
+
+            TextField
+            {
+                id: text_mess
+                placeholderText: qsTr("Enter message")
+                text: ""
+                width: row.width - button1.width - 5
+                height: 50
+            }
+
+            Button
+            {
+                id: button1
+                Text
+                {
+                    anchors.centerIn: parent
+                    id: te1
+                    text: "send"
+                }
+                width: te1.width + (te1.width * 0.9)
+                height: 50
+
+//                onClicked: {
+//                    if(text_mess.text !== "")
+//                    {
+//                        listModel.append({idshnik:  user_name + ": " + text_mess.text})
+//                        ++number
+//                    }
+//                }
+            }
+
+
+        }
+
     }
 }
+
+
+
+
