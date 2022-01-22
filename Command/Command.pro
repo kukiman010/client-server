@@ -16,8 +16,10 @@ CONFIG      += c++11
 
 
 SOURCES += \
-        command.cpp
+        command.cpp \
+        commandmessage.cpp
 
 HEADERS += \
     command.h \
+    commandmessage.h \
     saved_container.h

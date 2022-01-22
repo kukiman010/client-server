@@ -8,7 +8,8 @@ Socket::Socket(QObject *parent) : QObject(parent)
     _soc_id = 0;
 
     connect(hand, SIGNAL(to_send(Cmd)) , this, SLOT(send(Cmd)) );
-//    connect(hand, SIGNAL(create(User*) ), this, SLOT(create_user(User*)));
+    connect(hand, SIGNAL(to_resend(Cmd)) , this, SLOT(resend(Cmd)) );
+
 
     _server.listen(QHostAddress::Any, 4242);
     connect(&_server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
@@ -83,6 +84,31 @@ void Socket::send(Cmd com)
     }
     else
         it->second->write(arr);
+}
+
+void Socket::resend(Cmd com)
+{
+    QByteArray arr;
+    QDataStream stream(&arr, QIODevice::WriteOnly);
+    stream << *com;
+
+    if(com.data()->getDestination().size() == 0)
+    {
+        for(auto it: _sockets)
+            it.second->write(arr);
+    }
+    else
+    {
+        for(uint i: com.data()->getDestination())
+        {
+            std::map<uint, QTcpSocket*>::iterator it = _sockets.find(i);
+            if(it == _sockets.end())
+                qDebug() << "User \'" << i << "\' dont find!";
+            else
+                it->second->write(arr);
+        }
+
+    }
 }
 
 void Socket::create_user(User* user)

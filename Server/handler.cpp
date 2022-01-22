@@ -49,6 +49,14 @@ void Handler::to_process(Cmd com)
     }
 
 
+    if(com.data()->getType() == Command::commandType::CT_users &&
+            com.data()->getAction() == Command::CA_chat_mess)
+    {
+        std::vector<uint> vec;
+        com.data()->setDestination(vec);
+
+        emit to_resend(com);
+    }
 }
 
 

@@ -22,7 +22,9 @@ public:
     explicit Socket(QObject *parent = nullptr);
     ~Socket();
 
-    void sing_in(const QString user = "", const QString pass = "");
+    void                sing_in(const QString user = "", const QString pass = "");
+    QString             getUserName()   {return _userClient;}
+    uint                getId()         {return _idClient;}
 
 
 public slots:
@@ -30,9 +32,9 @@ public slots:
     void send(Cmd com);
 
 private:
-    QTcpSocket  _socket;
-    QString userClient;
-    uint    _id_client;
+    QTcpSocket      _socket;
+    QString         _userClient;
+    uint            _idClient;
 
 
 };

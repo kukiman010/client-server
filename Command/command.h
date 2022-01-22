@@ -61,6 +61,7 @@ public:
         CSO_login,
         CSO_pass,
         CSO_user,
+        CSO_message,
         CSO_
     };
 
@@ -80,6 +81,7 @@ protected:
     simpleObject                _info;
     std::list<simpleObject>     _objects;
     uint                        _id;
+    std::vector<uint>           _destination;
 
 
 public:
@@ -102,6 +104,9 @@ public:
 
     inline void                             setId(const uint id)                            {_id = id;}
     inline uint                             getId()                                         {return _id;}
+
+    inline void                             setDestination(const std::vector<uint> vec )    {_destination = vec;}
+    inline std::vector<uint>                getDestination()                                {return _destination;}
 
     inline void                             addObject(const simpleObject obj)               {_objects.push_back(obj);}
     inline void                             addObject(const std::list<simpleObject> &L_obj) {_objects.insert( _objects.end(), L_obj.begin(), L_obj.end() );}

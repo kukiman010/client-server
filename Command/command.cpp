@@ -25,6 +25,16 @@ QDataStream & operator >>(QDataStream &stream, Command &command)
     command._revers = static_cast<Command::commandRevers>(rev);
     command._type = static_cast<Command::commandType>(typ);
 
+    uint sizeDes;
+    stream >>sizeDes;
+    for(uint i=0;i < size; ++i)
+    {
+        uint cache;
+        stream >> cache;
+        command._destination.push_back(cache);
+    }
+
+
     return stream;
 }
 
@@ -39,6 +49,10 @@ QDataStream & operator <<(QDataStream &stream, Command &command)
             << static_cast<uint>( command._objects.size() );
 
     for(auto i: command._objects)
+        stream << i;
+
+    stream  << static_cast<uint>(command._destination.size());
+    for(auto i: command._destination)
         stream << i;
 
     return stream;

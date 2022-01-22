@@ -19,6 +19,7 @@ signals:
 public slots:
 //    void from_gui();
     void authorization(QString name, QString pass);
+    void sendMessage(QString text);
     void from_auth(bool answer);
 
 public:

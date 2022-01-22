@@ -76,7 +76,8 @@ Window {
         onTo_authorization:
         {
             if (auth == true)
-                stackView.push(page2);
+//                stackView.push(page2);
+                stackView.push(pageMainMenu);
             else
                 stackView.pop(page1);
         }
@@ -88,8 +89,8 @@ Window {
     {
         id: stackView
         anchors.fill: parent
-//        initialItem: page1
-        initialItem: pageMainMenu
+        initialItem: page1
+//        initialItem: pageMainMenu
     }
 
 
@@ -136,6 +137,11 @@ Window {
     MainPage
     {
         id: pageMainMenu
+        visible:  false
+        onButtonClicked:
+        {
+            gui.sendMessage(pageMainMenu.message);
+        }
     }
 //    Rectangle
 //    {

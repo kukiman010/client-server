@@ -7,7 +7,7 @@ Socket::Socket(QObject *parent) : QObject(parent)
     _socket.connectToHost(QHostAddress("127.0.0.1"), 4242);
     connect(&_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()) );
 
-    _id_client =0;
+    _idClient =0;
 }
 
 Socket::~Socket()
@@ -33,7 +33,7 @@ void Socket::onReadyRead()
 
 void Socket::send(Cmd com)
 {
-    com.data()->setId(_id_client != 0 ? _id_client : 0);
+    com.data()->setId(_idClient != 0 ? _idClient : 0);
     QByteArray bytes;
     QDataStream stream1(&bytes, QIODevice::WriteOnly);
     stream1 << *com;
@@ -91,7 +91,7 @@ void Socket::loop(Cmd com)
         else if(com.data()->getAction() == Command::CA_client_id &&
                 com.data()->getRevers() == Command::CR_status_connect)
         {
-            _id_client = com.data()->getId();
+            _idClient = com.data()->getId();
 //            sing_in("qwerty", "1234");
         }
 

@@ -31,6 +31,7 @@ public slots:
     void onSocketStateChanged(QAbstractSocket::SocketState socketState);
     void onReadyRead();
     void send(Cmd com);
+    void resend(Cmd com);
     void create_user(User*);
 
 

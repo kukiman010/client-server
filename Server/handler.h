@@ -24,6 +24,7 @@ public:
 
 signals:
     void to_send(Cmd);
+    void to_resend(Cmd);
 //    void  disconnect(Cmd ptr){}
     void create(User*);
 };
